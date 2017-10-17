@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import firebase from 'firebase';
 // import logo from './logo.svg';
 import Header from './components/header';
-
 import Logout from './components/logout';
+
 import Recipe from './pages/recipe';
 import ShoppingList from './pages/shoppingList';
 import Pantry from './pages/pantry';
@@ -25,6 +24,8 @@ class App extends Component {
       authenticated: false,
       redirect: false
     };
+
+    console.log("checking app constructor" + this.state.shoppingList);
   }
 
   componentWillMount() {
@@ -46,6 +47,7 @@ class App extends Component {
   }
 
   addToList(ingreds) {
+    console.log("Shopping List: " + this.state.shoppingList);
     this.setState((prevState) => {
       return {
         shoppingList: prevState.shoppingList.concat(ingreds)
@@ -61,16 +63,11 @@ class App extends Component {
           console.log("unable to sign in with Facebook")
         } else {
           this.setState({ redirect: true });
-          console.log(this.state.redirect)
         }
       })
   }
 
   authWithEmailPassword(email, password) {
-
-    console.log("email: " + email);
-    console.table(email, password);
-
     app.auth().fetchProvidersForEmail(email)
       .then((providers) => {
         if (providers.length === 0) {
@@ -78,7 +75,7 @@ class App extends Component {
           return app.auth().createUserWithEmailAndPassword(email, password);
         } else if (providers.indexOf("password") === -1) {
           //used facebook
-          alert("An account is already tied to this email. Please try alternative login.");
+          return <div className="alert alert-danger" role="alert">Your account is already tied to an email. Please login with Email and Password.</div>
         } else {
           //sign in user
           return app.auth().signInWithEmailAndPassword(email, password);

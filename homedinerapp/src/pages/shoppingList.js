@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import ShoppingItemAdd from './../components/shoppingItemAdd';
 
 class ShoppingList extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render() {
         return (

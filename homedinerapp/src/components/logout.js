@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Route, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-import { app, facebookProvider } from './base';
+import { app } from './base';
 
 class Logout extends Component {
     constructor(props) {

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import Logout from './logout';
-import { app, facebookProvider } from './base';
 
 class Header extends Component {
     constructor(props) {
@@ -13,9 +11,9 @@ class Header extends Component {
 
     onLoginFormSubmitted(event) {
         event.preventDefault();
-        console.log(this.emailInput.value);
         this.props.authWithEmailPassword(this.emailInput.value, this.passwordInput.value);
         this.loginForm.reset();
+
     }
 
     render() {
@@ -91,7 +89,7 @@ class Header extends Component {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="submit" className="btn btn-primary" data-toggle="modal" form="email-login-form">Sign In</button>
+                                <button type="submit" className="btn btn-primary" form="email-login-form">Sign In</button>
                             </div>
                         </div>
                     </div>
