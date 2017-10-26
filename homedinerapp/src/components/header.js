@@ -31,7 +31,7 @@ class Header extends Component {
                             ? (
                                 <div className="center-div">
                                     <Link className="nav-item nav-link active" to="/">Recipes <span className="sr-only">(current)</span></Link>
-                                    <Link className="nav-item nav-link" to="/pantry">Pantry</Link>
+                                    {/* <Link className="nav-item nav-link" to="/pantry">Pantry</Link> */}
                                     <Link className="nav-item nav-link" to="/shoppinglist">Shopping List</Link>
                                 </div>
                             ) : null

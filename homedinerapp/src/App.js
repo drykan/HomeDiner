@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { app, facebookProvider } from './components/base';
 // import logo from './logo.svg';
 import Header from './components/header';
 import Logout from './components/logout';
-
 import Recipe from './pages/recipe';
 import ShoppingList from './pages/shoppingList';
 import Pantry from './pages/pantry';
-
-import { app, facebookProvider } from './components/base';
-
 
 class App extends Component {
   constructor(props) {
@@ -24,11 +21,22 @@ class App extends Component {
       authenticated: false,
       redirect: false
     };
-
-    console.log("checking app constructor" + this.state.shoppingList);
   }
 
   componentWillMount() {
+    //database
+    let shoppingListRef = app.database().ref('shoppingList').orderByKey();
+    shoppingListRef.on('child_added', (snapshot) => {
+      let shopping = {
+        text: snapshot.val(),
+        id: snapshot.key
+      };
+      this.setState({
+        shopingList: [shopping].concat(this.state.shoppingList)
+      });
+    });
+
+    //authentication
     this.removeAuthListner = app.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -44,15 +52,16 @@ class App extends Component {
 
   componentWillUnmount() {
     this.removeAuthListner();
+    // base.removeBinding(this.shoppingListRef);
   }
 
   addToList(ingreds) {
-    console.log("Shopping List: " + this.state.shoppingList);
     this.setState((prevState) => {
       return {
         shoppingList: prevState.shoppingList.concat(ingreds)
       }
     })
+    app.database().ref("shoppingList").push(this.state.shoppingList);
   }
 
   authWithFacebook() {
@@ -107,7 +116,7 @@ class App extends Component {
               return (<Recipe onAddIngredient={this.addToList} />)
             }} />
 
-            <Route exact path="/pantry" component={Pantry} />
+            {/* <Route exact path="/pantry" component={Pantry} /> */}
 
             <Route exact path="/shoppinglist" render={() => {
               return (<ShoppingList shoppingList={this.state.shoppingList} />)

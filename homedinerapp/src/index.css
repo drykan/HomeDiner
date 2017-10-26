@@ -7,11 +7,20 @@ body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  color: #222;
 }
 
 a {
   color: #222;
   text-decoration: none;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-initial {
+  display: initial !important;
 }
 
 /*****
@@ -51,7 +60,6 @@ nav {
 
 
 #sign-in-btn, #logout-btn {
-  display: inline-block;
   width: 150px;
   height: 50px;
   background-color: #7FADA9;
@@ -106,7 +114,8 @@ RECIPE PAGE
 
 #recipe-wrapper {
   display: flex;
-  max-width: 80%;
+  width: 90%;
+  max-width: 1044px;
   min-height: 60vh;
   padding: 10px;
   margin: 0 auto;
@@ -124,9 +133,89 @@ RECIPE CARDS
   padding: 10px;
 }
 
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  left:0;
+  right: 0;
+  padding: .75rem .9rem;
+}
+
+.card-block {
+  padding: 1rem;
+}
+
+.card-block h4 {
+  font-size: 1em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.card-title-tooltip {
+  display: none;
+  position: absolute;
+  top: 275px;
+  left: 40%;
+  padding: 5px;
+  background: #eee;
+  box-shadow: 2px 2px 5px #000;
+  max-width: 300px;
+}
+
+.recipe-description {
+  padding: 10px 0px 8px;
+  margin: 20px 0;
+  text-align: center;
+  border-top: 1px solid #777;
+  border-bottom: 1px solid #777;
+}
+
+.directions-btn {
+  width: 100%;
+}
+
+.recipe-calories {
+  float: left;
+  width: 49%;
+  padding: .2em .5em;
+  border-right: 1px solid #777;
+  background: #fff;
+  color: #222;
+}
+
+.recipe-ingredients {
+  padding: .2em .5em;
+}
+
+.flip-back {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+}
+
 .ingred-list {
   text-decoration: none;
   list-style: none;
+  text-align: left;
+}
+
+.ingred-check {
+  float: left;
+}
+
+.ingred-item {
+  width: 240px;
+  float: left;
+  margin-left: 4px;
+}
+
+.ingred-display {
+  margin-top: 20px;
+  display: inline-block;
+  height: 370px;
+  overflow-y: scroll;
 }
 
 /* Recipe Card Flip */
@@ -137,14 +226,18 @@ RECIPE CARDS
 	transform-style: preserve-3d;
 }
 
-/*  UPDATED! flip the pane when hovered */
-.flip-container:hover .flipper, .flip-container.hover .flipper, .flip-container.flip .flipper {
+.flip-container.flip .flipper {
 	transform: rotateY(180deg);
+}
+
+.front:hover, .back:hover {
+  box-shadow: 0px 1px 10px #333;
+  transition: 0.2s;
 }
 
  .flip-container, .front, .back {
 	width: 320px;
-	height: 480px;
+  height: 480px;
 }  
 
 /* flip speed goes here */
@@ -161,13 +254,18 @@ RECIPE CARDS
 	transform-style: preserve-3d;
 	position: absolute;
 	top: 0;
-	left: 0;
+  left: 0;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #999;
+  background: #fff;
 }
 
 /*  UPDATED! front pane, placed above back */
 .front {
 	z-index: 2;
-	transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  background: #fff;
 }
 
 /* back, initially hidden pane */
